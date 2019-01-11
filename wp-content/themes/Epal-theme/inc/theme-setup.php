@@ -286,18 +286,6 @@ add_filter('widget_text', 'php_text', 99);
 
 
 
-// Functions chỉ hiển thị cho Author các Post của của mình
-function epal_posts_useronly( $wp_query ) {
-    if ( strpos( $_SERVER[ 'REQUEST_URI' ], '/wp-admin/edit.php' ) !== false ) {
-        if ( !current_user_can( 'level_10' ) ) {
-            global $current_user;
-            $wp_query->set( 'author', $current_user->id );
-        }
-    }
-}
-add_filter('parse_query', 'epal_posts_useronly' );
-
-
 // tạo Giỏ hàng Ajax- WooCommerce
 add_filter('add_to_cart_fragments', 'woocommerceframework_header_add_to_cart_fragment');
   
@@ -316,16 +304,7 @@ function woocommerceframework_header_add_to_cart_fragment( $fragments ) {
   
 }
 
-// Functions chỉ hiển thị cho Author các Post của của mình
-function epal_posts_useronly( $wp_query ) {
-    if ( strpos( $_SERVER[ 'REQUEST_URI' ], '/wp-admin/edit.php' ) !== false ) {
-        if ( !current_user_can( 'level_10' ) ) {
-            global $current_user;
-            $wp_query->set( 'author', $current_user->id );
-        }
-    }
-}
-add_filter('parse_query', 'epal_posts_useronly' );
+
 
 // Bỏ Javascript mặc định wordpress tạo ra trên theme
 add_action( 'wp_enqueue_scripts', function () {
@@ -355,7 +334,3 @@ add_action( 'init', function () {
 // code html giỏ hàng ajax
 
 ?>
-
-<!-- <span class="cart-contents">
-<a href="<?php echo $woocommerce->cart->get_cart_url(); ?>" title="<?php _e('View your shopping cart', 'woothemes'); ?>"><?php echo sprintf(_n('%d item', '%d items', $woocommerce->cart->cart_contents_count, 'woothemes'), $woocommerce->cart->cart_contents_count);?> - <?php echo $woocommerce->cart->get_cart_total(); ?></a>
-</span> -->
